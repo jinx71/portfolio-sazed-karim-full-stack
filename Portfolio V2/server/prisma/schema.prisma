@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+}
+
+// One row per portfolio project, across all three tracks.
+model Project {
+  id        String   @id @default(cuid())
+  code      String   @unique // e.g. "FS-01", "AI-03", "MERN-02"
+  title     String
+  track     String // "fullstack" | "aiml" | "mern"
+  status    String // "shipped" | "in-progress" | "planned"
+  summary   String
+  stack     String[] // technology tags
+  month     Int? // build-roadmap month, where relevant
+  repoUrl   String?
+  liveUrl   String?
+  featured  Boolean  @default(false)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([track, order])
+}
+
+// Blog posts, authored in Markdown via the CMS.
+model Post {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  excerpt     String
+  content     String // Markdown
+  tags        String[]
+  accent      String    @default("indigo") // theme accent for the cover
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([published, publishedAt])
+}
