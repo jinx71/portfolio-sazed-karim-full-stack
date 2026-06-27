@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    @apply bg-paper font-sans text-body antialiased;
+  }
+
+  ::selection {
+    @apply bg-violet text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-violet ring-offset-2 ring-offset-paper;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .shell {
+    @apply mx-auto w-full max-w-page px-5 sm:px-8;
+  }
+
+  .eyebrow {
+    @apply font-mono text-xs font-medium uppercase tracking-[0.22em];
+  }
+
+  /* Vibrant multi-stop text used for headlines and accents. */
+  .gradient-text {
+    @apply bg-gradient-to-r from-indigo via-fuchsia to-amber bg-clip-text text-transparent;
+  }
+
+  /* Markdown article styling for blog posts. */
+  .prose-pf {
+    @apply text-body;
+  }
+  .prose-pf h2 {
+    @apply mt-10 mb-3 font-display text-2xl font-bold text-ink;
+  }
+  .prose-pf h3 {
+    @apply mt-7 mb-2 font-display text-lg font-bold text-ink;
+  }
+  .prose-pf p {
+    @apply my-4 leading-relaxed text-body;
+  }
+  .prose-pf ul {
+    @apply my-4 list-disc space-y-1.5 pl-5 text-body;
+  }
+  .prose-pf ol {
+    @apply my-4 list-decimal space-y-1.5 pl-5 text-body;
+  }
+  .prose-pf a {
+    @apply font-medium text-violet underline underline-offset-2 hover:text-fuchsia;
+  }
+  .prose-pf code {
+    @apply rounded bg-paper-2 px-1.5 py-0.5 font-mono text-[0.85em] text-ink;
+  }
+  .prose-pf pre {
+    @apply my-5 overflow-x-auto rounded-xl bg-ink p-4 text-sm text-paper;
+  }
+  .prose-pf pre code {
+    @apply bg-transparent p-0 text-paper;
+  }
+  .prose-pf blockquote {
+    @apply my-5 border-l-4 border-violet pl-4 italic text-muted;
+  }
+  .prose-pf strong {
+    @apply font-semibold text-ink;
+  }
+}
